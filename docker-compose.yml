@@ -3,6 +3,7 @@ version: "3"
 services:
   frontend:
     container_name: frontend
+    image: piscord-frontend
     build:
       context: client
     env_file:

@@ -1,4 +1,5 @@
 import Home from "./Home";
+import Register from "./Register";
 
 interface IPage {
   name: string;
@@ -10,5 +11,10 @@ export const pages: IPage[] = [
     name: "Home",
     path: "/",
     component: <Home />,
+  },
+  {
+    name: "Register",
+    path: "/register",
+    component: <Register />,
   },
 ];

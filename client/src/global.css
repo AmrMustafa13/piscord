@@ -1,0 +1,34 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "gg sans";
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+@font-face {
+  font-family: "gg sans";
+  src: url(assets/fonts/ggsans.ttf);
+}
+
+@font-face {
+  font-family: "gg sans";
+  src: url(assets/fonts/ggsans-semibold.ttf);
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "gg sans";
+  src: url(assets/fonts/ggsans-bold.ttf);
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "gg sans";
+  src: url(assets/fonts/ggsans-bolder.ttf);
+  font-weight: 700;
+}
