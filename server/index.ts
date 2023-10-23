@@ -12,3 +12,4 @@ app.listen(8000, async () => {
 
   console.log(await prisma.user.findMany());
 });
+console.log("Shakour");
