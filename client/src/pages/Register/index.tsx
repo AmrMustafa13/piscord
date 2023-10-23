@@ -8,37 +8,20 @@ import CheckBox from "@/components/form/CheckBox";
 const Register = () => {
   return (
     <div
+      className="grid place-content-center min-h-screen bg-cover"
       style={{
-        display: "grid",
-        placeContent: "center",
-        minHeight: "100vh",
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: "cover",
       }}
     >
       <form
+        className="p-8 text-white"
         style={{
           width: "480px",
           backgroundColor: "hsl( 223 calc( 1 *6.7%) 20.6% /1)",
-          padding: "32px",
-          color: "white",
         }}
       >
-        <h3
-          style={{
-            textAlign: "center",
-            fontSize: "24px",
-            lineHeight: "30px",
-            fontWeight: "300",
-          }}
-        >
-          Create an account
-        </h3>
-        <div
-          style={{
-            marginTop: "20px",
-          }}
-        >
+        <h3 className="text-center text-2xl font-light">Create an account</h3>
+        <div className="mt-5">
           <TextInput type="email" label="Email" required />
           <TextInput type="text" label="Display Name" />
           <TextInput type="text" label="Username" required />
@@ -46,7 +29,7 @@ const Register = () => {
           <DateInput label="Date Of Birth" required />
           <CheckBox
             label={
-              <p style={{ color: "rgb(148, 155, 164)", fontSize: "12px" }}>
+              <p className="text-xs" style={{ color: "rgb(148, 155, 164)" }}>
                 (Optional) It’s okay to send me emails with Discord updates,
                 tips, and special offers. You can opt out at any time.
               </p>
@@ -54,11 +37,8 @@ const Register = () => {
           />
           <FilledButton>Continue</FilledButton>
           <p
+            className="text-xs mt-2 font-normal"
             style={{
-              fontSize: "12px",
-              lineHeight: "16px",
-              marginTop: "8px",
-              fontWeight: "400",
               color: "rgb(148, 155, 164)",
             }}
           >
@@ -84,12 +64,10 @@ const Register = () => {
           </p>
           <Link
             to="/login"
+            className="text-sm font-medium inline-block mt-5"
             style={{
-              fontSize: "14px",
-              fontWeight: "500",
               color: "rgb(0, 168, 252)",
               display: "inline-block",
-              marginTop: "20px",
             }}
           >
             Already have and account?

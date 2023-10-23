@@ -14,23 +14,19 @@ const TextInput: FC<Props> = ({
   required = false,
 }) => {
   return (
-    <div style={{ marginBottom: "20px" }}>
+    <div className="mb-5">
       <label
+        className="block uppercase mb-2 font-bold text-xs"
         style={{
-          display: "block",
-          textTransform: "uppercase",
           color: "hsl( 215 calc( 1 *8.8%) 73.3% /1)",
-          marginBottom: "8px",
-          fontWeight: "700",
-          fontSize: "12px",
         }}
       >
         {label}{" "}
         {required && (
           <span
+            className="text-base"
             style={{
               color: "red",
-              fontSize: "15px",
             }}
           >
             *
@@ -39,15 +35,11 @@ const TextInput: FC<Props> = ({
       </label>
       <input
         type={type}
+        className="w-full rounded border-none outline-none text-white"
         style={{
-          width: "100%",
           lineHeight: "20px",
           padding: "10px",
           backgroundColor: "hsl( 225 calc( 1 *6.3%) 12.5% /1)",
-          borderRadius: "3px",
-          border: "none",
-          outline: "none",
-          color: "white",
         }}
       />
       <p>{helperText}</p>
@@ -56,11 +48,3 @@ const TextInput: FC<Props> = ({
 };
 
 export default TextInput;
-
-/*
-  Discord Fonts
-  --font-primary: "gg sans","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-  --font-headline: "ABC Ginto Nord","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-  --font-code: Consolas,"Andale Mono WT","Andale Mono","Lucida Console","Lucida Sans Typewriter","DejaVu Sans Mono","Bitstream Vera Sans Mono","Liberation Mono","Nimbus Mono L",Monaco,"Courier New",Courier,monospace;
-
-*/

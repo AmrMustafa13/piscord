@@ -22,46 +22,31 @@ const currentYear = new Date().getFullYear();
 const maxYearsBefore = 80;
 const DateInput: FC<Props> = ({ label, required = false }) => {
   return (
-    <div style={{ marginBottom: "20px" }}>
+    <div className="mb-5">
       <label
+        className="block uppercase mb-2 font-bold text-xs"
         style={{
-          display: "block",
-          textTransform: "uppercase",
           color: "hsl( 215 calc( 1 *8.8%) 73.3% /1)",
-          marginBottom: "8px",
-          fontWeight: "700",
-          fontSize: "12px",
         }}
       >
         {label}{" "}
         {required && (
           <span
+            className="text-base"
             style={{
               color: "red",
-              fontSize: "15px",
             }}
           >
             *
           </span>
         )}
       </label>
-      <div
-        style={{
-          display: "flex",
-          gap: "5px",
-        }}
-      >
+      <div className="flex gap-1 ">
         <select
           placeholder="Month"
+          className="leading-5 p-3 rounded border-none outline-none text-white flex-1"
           style={{
-            lineHeight: "20px",
-            padding: "10px",
             backgroundColor: "hsl( 225 calc( 1 *6.3%) 12.5% /1)",
-            borderRadius: "3px",
-            border: "none",
-            outline: "none",
-            color: "white",
-            flex: "1",
           }}
         >
           <option value="" selected disabled hidden>
@@ -75,15 +60,9 @@ const DateInput: FC<Props> = ({ label, required = false }) => {
         </select>
         <select
           placeholder="Day"
+          className="leading-5 p-3 rounded border-none outline-none text-white flex-1"
           style={{
-            lineHeight: "20px",
-            padding: "10px",
             backgroundColor: "hsl( 225 calc( 1 *6.3%) 12.5% /1)",
-            borderRadius: "3px",
-            border: "none",
-            outline: "none",
-            color: "white",
-            flex: "1",
           }}
         >
           <option value="" selected disabled hidden>
@@ -101,15 +80,9 @@ const DateInput: FC<Props> = ({ label, required = false }) => {
         </select>
         <select
           placeholder="Year"
+          className="leading-5 p-3 rounded border-none outline-none text-white flex-1"
           style={{
-            lineHeight: "20px",
-            padding: "10px",
             backgroundColor: "hsl( 225 calc( 1 *6.3%) 12.5% /1)",
-            borderRadius: "3px",
-            border: "none",
-            outline: "none",
-            color: "white",
-            flex: "1",
           }}
         >
           <option value="" selected disabled hidden>
@@ -124,27 +97,8 @@ const DateInput: FC<Props> = ({ label, required = false }) => {
             ))}
         </select>
       </div>
-      {/* <input
-        style={{
-          width: "100%",
-          lineHeight: "20px",
-          padding: "10px",
-          backgroundColor: "hsl( 225 calc( 1 *6.3%) 12.5% /1)",
-          borderRadius: "3px",
-          border: "none",
-          outline: "none",
-          color: "white",
-        }}
-      /> */}
     </div>
   );
 };
 
 export default DateInput;
-
-/*
-  --font-primary: "gg sans","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-  --font-headline: "ABC Ginto Nord","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-  --font-code: Consolas,"Andale Mono WT","Andale Mono","Lucida Console","Lucida Sans Typewriter","DejaVu Sans Mono","Bitstream Vera Sans Mono","Liberation Mono","Nimbus Mono L",Monaco,"Courier New",Courier,monospace;
-
-*/
