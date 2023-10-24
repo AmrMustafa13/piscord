@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .chat-nav-icon {
+    @apply w-6 h-6 text-[#b5bac1] hover:text-[#dbdee1];
+  }
+}
