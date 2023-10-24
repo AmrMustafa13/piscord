@@ -118,4 +118,4 @@ const ChannelsSidebar = () => {
     )
 }
 
-export default ChannelsSidebar
+export default ChannelsSidebar;
