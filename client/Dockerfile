@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package* .
 
-RUN npm ci
+RUN npm install
 
 COPY ./entrypoint.sh /usr/bin
 

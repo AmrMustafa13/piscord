@@ -1,15 +1,14 @@
-import { Outlet, useParams } from "react-router-dom"
+import { Outlet, useParams } from "react-router-dom";
 
 const ChannelsSidebar = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { serverId } = useParams();
 
-    const { serverId } = useParams()
+  return (
+    <div className="flex-1">
+      <Outlet />
+    </div>
+  );
+};
 
-    return (
-        <div>
-            Channels of server {serverId}
-            <Outlet />
-        </div>
-    )
-}
-
-export default ChannelsSidebar
+export default ChannelsSidebar;

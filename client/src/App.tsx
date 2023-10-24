@@ -4,18 +4,19 @@ import ChannelsSidebar from "./components/ChannelsSidebar";
 import Chat from "./components/Chat";
 import WelcomeToServer from "./components/WelcomeToServer";
 
-
 function App() {
-  return <>
-    <Routes>
-      <Route path="/channels/" element={<Home />} >
-        <Route path=":serverId" element={<ChannelsSidebar />} >
-          <Route index element={<WelcomeToServer />} />
-          <Route path=":channelId" element={<Chat />} />
+  return (
+    <>
+      <Routes>
+        <Route path="/channels/" element={<Home />}>
+          <Route path=":serverId" element={<ChannelsSidebar />}>
+            <Route index element={<WelcomeToServer />} />
+            <Route path=":channelId" element={<Chat />} />
+          </Route>
         </Route>
-      </Route>
-    </Routes>
-  </>
+      </Routes>
+    </>
+  );
 }
 
 export default App;
