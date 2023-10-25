@@ -6,11 +6,9 @@ import { MdAddReaction } from "react-icons/md";
 const Message: FC<IMessage> = ({ user, content, timestamp }) => {
   return (
     <div className="flex gap-5 p-1 px-6  mt-[17px] hover:bg-[#2e3035] relative [&:hover>ul]:flex">
-      <div
-        className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${user.profileImage})`,
-        }}
+      <img
+        src={user.profileImage}
+        className="w-10 h-10 rounded-full flex-shrink-0 object-cover"
       />
 
       <div>

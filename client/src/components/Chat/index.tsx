@@ -9,11 +9,11 @@ const Chat = () => {
   const { channelId } = useParams();
 
   return (
-    <div className="flex flex-col max-h-screen">
+    <main className="flex flex-col max-h-screen">
       <Navbar />
       <ChatView />
       <TypingField channelTitle={channel.title} />
-    </div>
+    </main>
   );
 };
 

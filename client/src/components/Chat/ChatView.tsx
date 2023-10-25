@@ -1,14 +1,19 @@
 import { channel } from "./mocked-data";
 import Message from "./Message";
-import textChannelIcon from "@/assets/images/text-channel.svg";
+import { useEffect, useRef } from "react";
+import { BiHash } from "react-icons/bi";
 
 const ChatView = () => {
+  const lastMessageRef = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    lastMessageRef.current?.scrollIntoView();
+  }, []);
   return (
-    <div className="flex-1 overflow-auto pb-6">
+    <section className="flex-1 overflow-auto pb-6 scrollbar scrollbar-w-[6px] scrollbar-track-secondary scrollbar-thumb-accent scrollbar-thumb-rounded">
       <div>
         <div className="m-4">
-          <div className="grid place-content-center bg-[#41434a] w-[68px] h-[68px] rounded-full ">
-            <img src={textChannelIcon} className="w-11 invert" />
+          <div className="grid place-content-center bg-[#41434a] w-[68px] h-[68px] rounded-full">
+            <BiHash className="text-white text-[47px] " />
           </div>
 
           <h2 className="my-2 font-extrabold text-[32px]">
@@ -19,7 +24,7 @@ const ChatView = () => {
           </p>
         </div>
       </div>
-      <div className="">
+      <div>
         {channel.chatList.map((chatMessage, index) => (
           <Message
             key={index}
@@ -28,8 +33,9 @@ const ChatView = () => {
             content={chatMessage.content}
           />
         ))}
+        <span ref={lastMessageRef} />
       </div>
-    </div>
+    </section>
   );
 };
 
