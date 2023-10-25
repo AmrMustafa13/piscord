@@ -9,7 +9,7 @@ import { HiOutlineHashtag } from "react-icons/hi";
 
 const Navbar = () => {
   return (
-    <div className="h-12 flex justify-between gap-3 p-2 border-b-2 border-solid border-[#26282c]">
+    <header className="h-12 flex justify-between gap-3 p-2 border-b-2 border-solid border-[#26282c]">
       <div className="flex items-center flex-1">
         <HiOutlineHashtag className="mx-2 text-[#80848e] text-[24px]" />
         <h3 className="font-semibold text-base">{channel.title}</h3>
@@ -40,7 +40,7 @@ const Navbar = () => {
       </div>
       <BiSolidInbox className="chat-nav-icon" />
       <BiSolidHelpCircle className="chat-nav-icon" />
-    </div>
+    </header>
   );
 };
 
