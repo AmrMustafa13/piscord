@@ -7,11 +7,12 @@ export default {
         primary: "#313338",
         secondary: "#2B2D31",
         accent: "#1E1F22",
+        complementary: "#23A559",
         "tx-primary": "#FFFFFF",
         "tx-secondary": "#81858B",
         "icons-primary": "#DBDEE1",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
 };
