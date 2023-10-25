@@ -42,7 +42,7 @@ const ChannelGroup = ({ channelGroup }
             >
                 {isOpened ? <MdKeyboardArrowDown /> : <MdKeyboardArrowRight />}
                 <span>
-                    {channelGroup.name.length > 30 ? channelGroup.name.substring(0, 30) + "..." : channelGroup.name}
+                    {channelGroup.name.length > 25 ? channelGroup.name.substring(0, 25) + "..." : channelGroup.name}
                 </span>
             </div>
             {
