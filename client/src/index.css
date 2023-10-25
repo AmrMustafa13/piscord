@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Will Be Separated into different files */
 @layer components {
   .chat-nav-icon {
-    @apply w-6 h-6 text-[#b5bac1] hover:text-[#dbdee1];
+    @apply w-6 h-6 text-[#b5bac1] hover:text-[#dbdee1] cursor-pointer;
+  }
+
+  .typing-icon {
+    @apply w-6 h-6 text-[#b5bac1] hover:text-[#dbdee1] cursor-pointer;
   }
 }
