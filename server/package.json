@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "startdev": " nodemon -L index.ts",
+    "startdev": "nodemon index.ts",
     "startpod": "npx ts-node --transpile-only index.ts"
   },
   "keywords": [],

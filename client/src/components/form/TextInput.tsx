@@ -7,12 +7,7 @@ interface Props {
   required?: boolean;
 }
 
-const TextInput: FC<Props> = ({
-  label,
-  type,
-  helperText,
-  required = false,
-}) => {
+const TextInput: FC<Props> = ({ label, type, helperText, required = false }) => {
   return (
     <div className="mb-5">
       <label
