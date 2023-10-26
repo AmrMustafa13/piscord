@@ -14,7 +14,7 @@ export default {
       },
       fontFamily: {
         "abc-ginto-nord": ["ABC Ginto Nord Unlicensed Trial", "sans-serif"],
-        "gg-sans": ["gg sans", "sans-serif"],
+        "gg-sans": ["gg sans Normal", "sans-serif"],
       },
     },
   },
