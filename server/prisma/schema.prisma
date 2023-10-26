@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  
 }
 
 datasource db {
@@ -11,11 +10,52 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user{
-  id Int @id @default(autoincrement())
-  username String @unique
-  nickName String
-  email String @unique
-  password String
-  dateOfBirth DateTime
+model user {
+  id                  String    @id @default(uuid())
+  username            String    @unique
+  nickName            String
+  email               String    @unique
+  password            String
+  dateOfBirth         DateTime
+  ownedservers        server[]  @relation("owned")
+  participatedservers server[]
+  messages            message[]
+}
+
+model server {
+  id         String     @id @default(uuid())
+  name       String
+  createdAt  DateTime   @default(now())
+  owner      user       @relation("owned", fields: [ownerId], references: [id])
+  ownerId    String
+  members    user[]
+  categories category[]
+}
+
+model category {
+  id        String    @id @default(uuid())
+  name      String
+  createdAt DateTime  @default(now())
+  server    server    @relation(fields: [serverId], references: [id])
+  serverId  String
+  channels  channel[]
+}
+
+model channel {
+  id         String    @id @default(uuid())
+  name       String
+  createdAt  DateTime  @default(now())
+  category   category  @relation(fields: [categoryId], references: [id])
+  categoryId String
+  messages   message[]
+}
+
+model message {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+  channel   channel  @relation(fields: [channelId], references: [id])
+  channelId String
+  userSent  user     @relation(fields: [userSentId], references: [id])
+  userSentId    String
 }
