@@ -19,3 +19,5 @@ export type ExpressHandler<RequestBody, ResposeBody> = RequestHandler<
 
 export type signupRequest = User;
 export type signupResponse = {};
+export type loginRequest = Pick<User, "email" | "password">;
+export type loginResponse = {};

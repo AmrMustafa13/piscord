@@ -1,11 +1,18 @@
 import { prisma } from "../db";
-import { ExpressHandler, User, signupRequest, signupResponse } from "../types";
-import bcrypt from "bcrypt";
-
-export const signupController: ExpressHandler<
+import {
+  ExpressHandler,
+  User,
   signupRequest,
-  signupResponse
-> = async (req, res) => {
+  signupResponse,
+  loginRequest,
+  loginResponse,
+} from "../types";
+import { generateToken } from "../utils/generateJWT";
+import bcrypt from "bcrypt";
+export const signupUser: ExpressHandler<signupRequest, signupResponse> = async (
+  req,
+  res
+) => {
   try {
     if (
       !req.body.username ||
@@ -37,4 +44,36 @@ export const signupController: ExpressHandler<
   } catch (error) {
     res.sendStatus(400);
   }
+};
+export const loginUser: ExpressHandler<loginRequest, loginResponse> = async (
+  req,
+  res
+) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return res.status(400).json({
+      message: "Email or password is missing!",
+    });
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user)
+    return res.status(401).json({
+      status: "FAILED",
+      message: "user not found",
+    });
+  const passwordMatch: Boolean = await bcrypt.compare(password, user.password);
+  if (!passwordMatch) {
+    return res.status(401).json({
+      message: "Incorrect email or password , please again",
+    });
+  }
+  const token = generateToken(
+    { userId: user.id },
+    process.env.JWT_SECRET,
+    process.env.JWT_AGE
+  );
+  if (!token)
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  res.status(200).json({ token });
 };
