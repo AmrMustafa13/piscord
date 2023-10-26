@@ -2,7 +2,7 @@ import express from "express";
 import { loginUser, signupUser } from "./src/controllers/authController";
 import { prisma } from "./src/db/db";
 import { User } from "./types";
-import globalErrorHandler from "./src/controllers/middlewares/globalErrorHandler";
+import globalErrorHandler from "./src/middlewares/globalErrorHandler";
 import authRouter from "./src/routes/authRoute";
 
 const app = express();
