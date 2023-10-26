@@ -5,9 +5,11 @@ interface ProtectedProps {
     children: JSX.Element
 }
 
-const Protected = ({ isSignedIn, children }: ProtectedProps) => {
-    if (isSignedIn) return <Navigate to="/channels/1/4" replace />
-    else return <>{children}</>
-}
 
+const Protected = ({ isSignedIn, children }: ProtectedProps) => {
+    if (!isSignedIn) {
+        return <Navigate to="/" replace />
+    }
+    return children
+}
 export default Protected

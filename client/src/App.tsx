@@ -17,22 +17,18 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={
-          <Protected isSignedIn={isSignedIn}>
-            <Landing />
-          </Protected>
+          isSignedIn ? <Navigate to="/channels" replace /> : <Landing />
         } />
         <Route path="/login" element={
-          <Protected isSignedIn={isSignedIn}>
-            <Login />
-          </Protected>
+          isSignedIn ? <Navigate to="/channels" replace /> : <Login />
         } />
         <Route path="/register" element={
-          <Protected isSignedIn={isSignedIn}>
-            <Register />
-          </Protected>
+          isSignedIn ? <Navigate to="/channels" replace /> : <Register />
         } />
-        <Route path="/channels/" element={
-          isSignedIn ? <Home /> : <Navigate to="/login" />
+        <Route path="/channels" element={
+          <Protected isSignedIn={isSignedIn}>
+            <Home />
+          </Protected>
         }>
           <Route path=":serverId" element={<ChannelsSidebar />}>
             <Route index element={<WelcomeToServer />} />
