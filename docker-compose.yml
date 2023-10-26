@@ -3,6 +3,7 @@ version: "3"
 services:
   frontend:
     container_name: frontend
+    image: piscord-frontend
     build:
       context: client
     env_file:
@@ -12,3 +13,36 @@ services:
     volumes:
       - ./client:/app
       - /app/node_modules
+    networks:
+      - piscord_network
+  backend:
+    container_name: backend
+    build:
+      context: ./server
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    networks:
+      - piscord_network
+  db:
+    container_name: database
+    image: postgres:16.0
+    env_file:
+      - .env
+    volumes:
+      - db_piscord:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - piscord_network
+
+volumes:
+  db_piscord:
+
+
+networks:
+  piscord_network:
