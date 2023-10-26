@@ -1,4 +1,4 @@
-import { prisma } from "../db";
+import { prisma } from "../db/db";
 import asyncHandler from "express-async-handler";
 import {
   ExpressHandler,
@@ -7,7 +7,7 @@ import {
   signupResponse,
   loginRequest,
   loginResponse,
-} from "../types";
+} from "../../types";
 import { generateToken } from "../utils/generateJWT";
 import bcrypt from "bcrypt";
 import AppError from "../utils/AppError";

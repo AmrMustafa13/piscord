@@ -1,14 +1,13 @@
 import express from "express";
-import { loginUser, signupUser } from "./controllers/userController";
-import { prisma } from "./db";
+import { loginUser, signupUser } from "./src/controllers/authController";
+import { prisma } from "./src/db/db";
 import { User } from "./types";
-import globalErrorHandler from "./middlewares/globalErrorHandler";
+import globalErrorHandler from "./src/controllers/middlewares/globalErrorHandler";
+import authRouter from "./src/routes/authRoute";
 
 const app = express();
 app.use(express.json());
-
-app.post("/signup", signupUser);
-app.post("/login", loginUser);
+app.use(authRouter);
 app.get("/", async (req, res) => {
   try {
     const users = await prisma.user.findMany();
