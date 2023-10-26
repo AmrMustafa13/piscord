@@ -1,4 +1,4 @@
-import Home from "./Home";
+import Servers from "./Servers";
 
 interface IPage {
   name: string;
@@ -9,6 +9,6 @@ export const pages: IPage[] = [
   {
     name: "Home",
     path: "/",
-    component: <Home />,
+    component: <Servers />,
   },
 ];

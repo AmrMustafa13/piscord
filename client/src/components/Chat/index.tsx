@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "../Home/Navbar";
 import ChatView from "./ChatView";
 import TypingField from "./TypingField";
 import { channel } from "./mocked-data";
