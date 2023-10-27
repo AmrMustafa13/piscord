@@ -175,10 +175,11 @@ const ChannelsSidebar = () => {
                 <header>
                     <h1 className="text-white font-semibold py-3 px-4 border-b-2 border-accent">Graduation Project {serverId}</h1>
                 </header>
-                <section className="p-2 flex flex-col gap-4 overflow-y-scroll  scrollbar scrollbar-w-[6px] scrollbar-track-secondary scrollbar-thumb-accent scrollbar-thumb-rounded">
+                <section className="p-2 flex flex-col gap-4 overflow-y-scroll  scrollbar scrollbar-w-[6px] scrollbar-track-secondary scrollbar-thumb-accent scrollbar-thumb-rounded flex-1">
                     {
                         channelGroupsMockData.map((channelGroup) => (
                             <ChannelGroup
+                                key={channelGroup.id}
                                 channelGroup={channelGroup}
                             />
                         ))
