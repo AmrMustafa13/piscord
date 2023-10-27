@@ -11,15 +11,16 @@ datasource db {
 }
 
 model user {
-  id                  String    @id @default(uuid())
-  username            String    @unique
+  id                  String             @id @default(uuid())
+  username            String             @unique
   nickName            String
-  email               String    @unique
+  email               String             @unique
   password            String
   dateOfBirth         DateTime
-  ownedservers        server[]  @relation("owned")
+  ownedservers        server[]           @relation("owned")
   participatedservers server[]
   messages            message[]
+  verificationTokens  VerificationToken?
 }
 
 model server {
@@ -51,11 +52,19 @@ model channel {
 }
 
 model message {
-  id        String   @id @default(uuid())
-  content   String
-  createdAt DateTime @default(now())
-  channel   channel  @relation(fields: [channelId], references: [id])
-  channelId String
-  userSent  user     @relation(fields: [userSentId], references: [id])
-  userSentId    String
+  id         String   @id @default(uuid())
+  content    String
+  createdAt  DateTime @default(now())
+  channel    channel  @relation(fields: [channelId], references: [id])
+  channelId  String
+  userSent   user     @relation(fields: [userSentId], references: [id])
+  userSentId String
+}
+
+model VerificationToken {
+  id         String  @id @default(uuid())
+  token      String  @unique
+  isVerified Boolean @default(false)
+  userId     String  @unique
+  user       user    @relation(fields: [userId], references: [id])
 }
