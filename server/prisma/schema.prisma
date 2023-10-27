@@ -8,7 +8,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = env("DATABASE_URL")
 }
 
 model user{
@@ -18,4 +18,13 @@ model user{
   email String @unique
   password String
   dateOfBirth DateTime
+  verificationTokens VerificationToken[]
+}
+
+model VerificationToken {
+  id           Int      @id @default(autoincrement()) 
+  token        String   @unique
+  isVerified   Boolean @default(false)
+  userId       Int
+  user         user     @relation(fields: [userId], references: [id])
 }
