@@ -65,6 +65,6 @@ model VerificationToken {
   id         String  @id @default(uuid())
   token      String  @unique
   isVerified Boolean @default(false)
-  userId     String  @unique
   user       user    @relation(fields: [userId], references: [id])
+  userId     String  @unique
 }
