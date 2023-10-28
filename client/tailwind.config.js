@@ -14,8 +14,15 @@ export default {
       },
       fontFamily: {
         "abc-ginto-nord": ["ABC Ginto Nord Unlicensed Trial", "sans-serif"],
-        "gg-sans": ["gg sans Normal", "sans-serif"],
+        "gg-sans-normal": ["gg sans normal", "sans-serif"],
+        "gg-sans-bold": ["gg sans", "sans-serif"],
       },
+    },
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1100px",
+      xl: "1280px",
     },
   },
   plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
