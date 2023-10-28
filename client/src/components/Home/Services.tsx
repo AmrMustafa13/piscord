@@ -10,7 +10,7 @@ const Services = () => {
         <div className="max-w-[1260px] m-auto flex flex-wrap md:flex-nowrap justify-between items-center px-[40px] py-[120px]">
           <img src={service1} className="flex-0 md:flex-1 lg:flex-[7] min-w-0" />
           <div className="flex-0 md:flex-1 lg:flex-[4]">
-            <h3 className="font-extrabold text-[clamp(20px,4vw,40px)] leading-[57.6px]">
+            <h3 className="font-extrabold text-[clamp(20px,4vw,40px)] leading-[120%]">
               Create an invite-only place where you belong
             </h3>
             <p className="text-[clamp(16px,2vw,20px)] font-normal mt-6 font-gg-sans text-[#272b2e]">
@@ -23,7 +23,7 @@ const Services = () => {
       <section className="bg-[#f6f6f6]">
         <div className="max-w-[1260px] m-auto flex flex-wrap-reverse md:flex-nowrap justify-between items-center px-[40px] py-[120px]">
           <div className="flex-0 md:flex-1 lg:flex-[4]">
-            <h3 className="font-extrabold text-[clamp(20px,4vw,40px)] leading-[57.6px]">
+            <h3 className="font-extrabold text-[clamp(20px,4vw,40px)] leading-[120%]">
               Where hanging out is easy
             </h3>
             <p className="text-[clamp(16px,2vw,20px)] font-normal mt-6 font-gg-sans text-[#272b2e]">
@@ -38,7 +38,7 @@ const Services = () => {
         <div className="max-w-[1260px] m-auto flex flex-wrap md:flex-nowrap justify-between items-center px-[40px] py-[120px]">
           <img src={service3} className="flex-0 md:flex-1 lg:flex-[7] min-w-0" />
           <div className="flex-0 md:flex-1 lg:flex-[4]">
-            <h3 className="font-extrabold text-[clamp(20px,4vw,40px)] leading-[57.6px]">
+            <h3 className="font-extrabold text-[clamp(20px,4vw,40px)] leading-[120%]">
               From few to a fandom
             </h3>
             <p className="text-[clamp(16px,2vw,20px)] font-normal mt-6 font-gg-sans text-[#272b2e]">

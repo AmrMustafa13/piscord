@@ -8,9 +8,9 @@ import { MdOutlineExpandMore } from "react-icons/md";
 const Footer = () => {
   return (
     <footer className="bg-[#23272a] text-white py-[80px]">
-      <div className=" max-w-[1260px] m-auto">
-        <div className="flex justify-between border-b border-solid border-[#5561e8] pb-10">
-          <div>
+      <div className=" max-w-[1260px] m-auto px-6">
+        <div className="grid grid-cols-6 border-b border-solid border-[#5561e8]">
+          <div className="mb-[56px] col-span-6 md:col-span-2  md:row-span-2">
             <div className="flex items-center my-6">
               <img src={languageImage} className="w-[24px] h-[16px] mr-2" />
               English, USA
@@ -44,7 +44,8 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div>
+
+          <div className="mb-[56px] col-span-3 md:col-span-2 lg:col-span-1">
             <h5 className="text-[#5561e8] text-base font-normal mb-5">Product</h5>
             <ul>
               <li className="mt-2">
@@ -69,7 +70,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="mb-[56px] col-span-3 md:col-span-2 lg:col-span-1">
             <h5 className="text-[#5561e8] text-base font-normal mb-5">Company</h5>
             <ul>
               <li className="mt-2">
@@ -99,7 +100,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="mb-[56px] col-span-3 md:col-span-2 lg:col-span-1">
             <h5 className="text-[#5561e8] text-base font-normal mb-5">Resources</h5>
             <ul>
               <li className="mt-2">
@@ -154,7 +155,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="mb-[56px] col-span-3 md:col-span-2 lg:col-span-1">
             <h5 className="text-[#5561e8] text-base font-normal mb-5">Policies</h5>
             <ul>
               <li className="mt-2">
