@@ -16,10 +16,6 @@ import bcrypt from "bcrypt";
 import AppError from "../utils/AppError";
 export const signupUser: ExpressHandler<signupRequest, signupResponse> =
   asyncHandler(async (req, res, next) => {
-    await prisma.verificationToken.deleteMany();
-    await prisma.user.delete({
-      where: { email: "baraaahmed728@gmail.com" },
-    });
     if (
       !req.body.username ||
       !req.body.dateOfBirth ||
