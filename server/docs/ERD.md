@@ -77,10 +77,10 @@ We'll need the following entities:
 
 ```
 /server  [POST]
-/server/:id  [DELETE]
-/server/:id  [PUT]
-/server/:id  [GET]
-/server/:userId [POST]
+/server/:serverId  [DELETE]
+/server/:serverId  [PUT]
+/server/:serverId  [GET]
+/server/:serverId/:userId [POST]
 ```
 
 **category**:
@@ -119,7 +119,6 @@ We'll need the following entities:
 /message/:messageId           [PUT]
 /message/:channelId           [GET]
 ```
-
 
 <!-- endpoint for server (categories and channels nested) -->
 <!-- endpoint for a channel chat -->
