@@ -9,6 +9,9 @@ import {
   loginResponse,
 } from "../../types";
 import { generateToken } from "../utils/generateJWT";
+import { generateVerificationToken } from "../utils/generateVerificationToken";
+import { sendEmail } from "../utils/sendEmail";
+import { createEmail } from "../utils/messages/generateHtmlMessage";
 import bcrypt from "bcrypt";
 import AppError from "../utils/AppError";
 export const signupUser: ExpressHandler<signupRequest, signupResponse> =
@@ -34,6 +37,17 @@ export const signupUser: ExpressHandler<signupRequest, signupResponse> =
       nickName: req.body.nickName,
     };
     const newUser = await prisma.user.create({ data: user });
+    const token = await generateVerificationToken();
+    const tokenDB = {
+      token: token,
+      userId: newUser.id,
+    };
+    console.log(
+      await prisma.verificationToken.create({
+        data: tokenDB,
+      })
+    );
+    sendEmail(newUser.email, "Account Verification", createEmail(token));
     res.status(200).json({
       status: "Success",
       user: newUser,
@@ -54,6 +68,15 @@ export const loginUser: ExpressHandler<loginRequest, loginResponse> =
       return next(
         new AppError("Incorrect email or password , please again", 401)
       );
+    const verificationToken = await prisma.verificationToken.findFirst({
+      where: { userId: user.id },
+    });
+    console.log(verificationToken, user.id);
+    if (!verificationToken)
+      return next(new AppError("You are already verified!", 400));
+    if (!verificationToken.isVerified) {
+      return next(new AppError("Verify your account first", 400));
+    }
     const token = generateToken(
       { userId: user.id },
       process.env.JWT_SECRET,
