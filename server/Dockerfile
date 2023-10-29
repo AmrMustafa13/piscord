@@ -2,8 +2,7 @@ FROM node:18.0
 
 WORKDIR /app
 
-COPY package.json .
-COPY package-lock.json .
+COPY ./package.json .
 
 RUN npm install
 
@@ -14,5 +13,3 @@ RUN chmod +x /usr/bin/entrypoint.sh
 COPY . .
 
 CMD [ "bash" , "/usr/bin/entrypoint.sh" ]
-
-EXPOSE 3000

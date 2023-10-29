@@ -1,9 +1,26 @@
 import express from "express";
+import { loginUser, signupUser } from "./src/controllers/authController";
+import { prisma } from "./src/db/db";
+import { User } from "./types";
+import globalErrorHandler from "./src/middlewares/globalErrorHandler";
+import authRouter from "./src/routes/authRoute";
 
 const app = express();
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+app.use(express.json());
+app.use(authRouter);
+app.get("/", async (req, res) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.status(200).json({
+      users,
+    });
+  } catch (err) {
+    res.status(400).json({
+      ErrorMessage: err,
+    });
+  }
 });
-
-app.listen(3000, () => console.log("Server running on port 3000"));
+app.use(globalErrorHandler);
+app.listen(8000, async () => {
+  console.log("Server running on port 8000\n");
+});
