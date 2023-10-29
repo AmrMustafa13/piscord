@@ -1,10 +1,10 @@
-import Hero from "@/components/Home/Hero";
+import Hero from "@/components/Landing/Hero";
 import downloadBackground from "@/assets/images/download-bg.svg";
 import { FiDownload } from "react-icons/fi";
-import Services from "@/components/Home/Services";
-import Footer from "@/components/Home/Footer";
+import Services from "@/components/Landing/Services";
+import Footer from "@/components/Landing/Footer";
 
-const Home = () => {
+const Landing = () => {
   return (
     <>
       <Hero />
@@ -22,4 +22,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Landing;
