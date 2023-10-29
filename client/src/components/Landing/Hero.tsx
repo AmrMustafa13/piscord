@@ -3,6 +3,7 @@ import { FiDownload } from "react-icons/fi";
 import cloudsImage from "@/assets/images/hero-bg-clouds.svg";
 import foreGroundLeft from "@/assets/images/hero-fg-left.svg";
 import foreGroundRightImage from "@/assets/images/hero-fg-right.svg";
+
 const Hero = () => {
   return (
     <header className="bg-[#404eed] overflow-hidden">
