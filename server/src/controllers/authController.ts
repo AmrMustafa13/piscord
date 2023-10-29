@@ -2,7 +2,6 @@ import { prisma } from "../db/db";
 import asyncHandler from "express-async-handler";
 import {
   ExpressHandler,
-  User,
   signupRequest,
   signupResponse,
   loginRequest,
@@ -14,44 +13,77 @@ import { sendEmail } from "../utils/sendEmail";
 import { createEmail } from "../utils/messages/generateHtmlMessage";
 import bcrypt from "bcrypt";
 import AppError from "../utils/AppError";
+import { validationResult } from "express-validator";
 export const signupUser: ExpressHandler<signupRequest, signupResponse> =
   asyncHandler(async (req, res, next) => {
-    if (
-      !req.body.username ||
-      !req.body.dateOfBirth ||
-      !req.body.email ||
-      !req.body.password ||
-      !req.body.nickName
-    )
-      return next(new AppError("All fields are required", 400));
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).json({ errors: errors.array() });
+      return;
+    }
+
+    const userWithSameEmail = await prisma.user.findUnique({
+      where: {
+        email: req.body.email,
+      },
+    });
+    if (userWithSameEmail !== null) {
+      res.status(409).json({
+        errors: [{ msg: "there is user with the  same email" }],
+      });
+      return;
+    }
+    const userWithSameUserName = await prisma.user.findUnique({
+      where: {
+        userName: req.body.userName,
+      },
+    });
+    if (userWithSameUserName !== null) {
+      res.status(409).json({
+        errors: [{ msg: "there is user with the same userName" }],
+      });
+      return;
+    }
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = (await bcrypt.hash(
-      req.body.password,
+      req.body.password!,
       salt
     )) as string;
-    const user: User = {
-      username: req.body.username,
-      dateOfBirth: new Date(req.body.dateOfBirth).toISOString(),
-      email: req.body.email,
-      password: hashedPassword,
-      nickName: req.body.nickName,
+
+    const user = {
+      userName: req.body.userName!,
+      dateOfBirth: new Date(req.body.dateOfBirth!),
+      email: req.body.email!,
+      password: hashedPassword!,
+      nickName: req.body.nickName!,
     };
+
     const newUser = await prisma.user.create({ data: user });
     const token = await generateVerificationToken();
     const tokenDB = {
       token: token,
       userId: newUser.id,
     };
-    console.log(
-      await prisma.verificationToken.create({
-        data: tokenDB,
-      })
-    );
-    sendEmail(newUser.email, "Account Verification", createEmail(token));
-    res.status(200).json({
-      status: "Success",
-      user: newUser,
+
+    await prisma.verificationToken.create({
+      data: tokenDB,
     });
+
+    const isEmailSent = await sendEmail(
+      newUser.email,
+      "Account Verification",
+      createEmail(token)
+    );
+    if (isEmailSent) {
+      res.sendStatus(200);
+      return ;
+    } else {
+      res.status(500).json({
+        errors: [{ msg: "internal server error." }],
+      });
+      return ;
+    }
   });
 export const loginUser: ExpressHandler<loginRequest, loginResponse> =
   asyncHandler(async (req, res, next) => {
