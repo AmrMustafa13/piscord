@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Landing from "./pages/Landing";
-import Home from "./pages/Home";
+import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ChannelsSidebar from "./components/ChannelsSidebar";
@@ -27,7 +27,7 @@ function App() {
         } />
         <Route path="/channels" element={
           <Protected isSignedIn={isSignedIn}>
-            <Home />
+            <Main />
           </Protected>
         }>
           <Route path=":serverId" element={<ChannelsSidebar />}>

@@ -1,5 +1,5 @@
 #! /bin/bash
 
 chown -R node: node_modules
-npx prisma db push
+npx prisma migrate dev --name init
 npm run startdev

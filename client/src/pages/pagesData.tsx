@@ -1,4 +1,4 @@
-import Home from "./Home";
+import Main from "./Main";
 import Login from "./Login";
 import Register from "./Register";
 
@@ -11,7 +11,7 @@ export const pages: IPage[] = [
   {
     name: "Home",
     path: "/",
-    component: <Home />,
+    component: <Main />,
   },
   {
     name: "Register",
