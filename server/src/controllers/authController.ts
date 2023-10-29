@@ -77,12 +77,12 @@ export const signupUser: ExpressHandler<signupRequest, signupResponse> =
     );
     if (isEmailSent) {
       res.sendStatus(200);
-      return ;
+      return;
     } else {
       res.status(500).json({
         errors: [{ msg: "internal server error." }],
       });
-      return ;
+      return;
     }
   });
 export const loginUser: ExpressHandler<loginRequest, loginResponse> =

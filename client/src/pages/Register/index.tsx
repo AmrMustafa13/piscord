@@ -31,6 +31,7 @@ const Register = () => {
     formData.delete("month");
     formData.delete("year");
     const data = Object.fromEntries(formData.entries());
+    console.log(data);
     fetch(`${import.meta.env.VITE_API_BASE_URL}/signup`, {
       method: "POST",
       headers: {
@@ -62,7 +63,7 @@ const Register = () => {
         <div className="mt-5">
           <TextInput type="email" label="Email" required name="email" />
           <TextInput type="text" label="Display Name" name="nickName" />
-          <TextInput type="text" label="Username" required name="username" />
+          <TextInput type="text" label="Username" required name="userName" />
           <TextInput type="password" label="Password" required name="password" />
           <DateInput label="Date Of Birth" required />
           <CheckBox

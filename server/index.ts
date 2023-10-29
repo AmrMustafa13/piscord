@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { loginUser, signupUser } from "./src/controllers/authController";
 import { prisma } from "./src/db/db";
 import { User } from "./types";
@@ -7,6 +8,7 @@ import authRouter from "./src/routes/authRoute";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use(authRouter);
 app.get("/", async (req, res) => {
   try {
