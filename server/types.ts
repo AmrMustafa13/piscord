@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 
 export interface User {
-  username: string;
+  userName: string;
   nickName: string;
   email: string;
   password: string;
@@ -9,7 +9,7 @@ export interface User {
 }
 
 export type ExpressHandler<RequestBody, ResposeBody> = RequestHandler<
-  string,
+  any,
   Partial<ResposeBody>,
   Partial<RequestBody>,
   any
