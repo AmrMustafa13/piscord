@@ -52,7 +52,7 @@ export const signupUser: ExpressHandler<signupRequest, signupResponse> =
     )) as string;
 
     const user = {
-      userName: req.body.userName!,
+      userName: req.body.userName!, 
       dateOfBirth: new Date(req.body.dateOfBirth!),
       email: req.body.email!,
       password: hashedPassword!,
