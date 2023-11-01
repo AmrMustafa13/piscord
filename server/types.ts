@@ -1,3 +1,4 @@
+import { channel } from "@prisma/client";
 import { RequestHandler } from "express";
 
 export interface User {
@@ -74,4 +75,15 @@ export type getServerRequest = {};
 export type getServerResponse = Server | error;
 
 export type addUserToServerRequest = {};
-export type addUserToServerResponse = {}|error;
+export type addUserToServerResponse = {} | error;
+
+// channel
+
+export type createChannelRequest = Omit<Channel,"id" | "createdAt" | "messages">;
+export type createChannelResponse = Channel | error
+export type updateChannelRequest = Pick<Channel , "name">
+export type updateChannelResponse = Channel | error
+export type deleteChannelRequest = {}
+export type deleteChannelResponse = {};
+export type getChannelRequest = {}
+export type getChannelResponse = Channel | error
