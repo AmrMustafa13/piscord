@@ -5,11 +5,13 @@ import { User } from "./types";
 import globalErrorHandler from "./src/middlewares/globalErrorHandler";
 import authRouter from "./src/routes/authRoute";
 import serverRouter from "./src/routes/serverRoute";
+import channelRouter from "./src/routes/channelRoute";
 
 const app = express();
 app.use(express.json());
 app.use(authRouter);
 app.use(serverRouter);
+app.use(channelRouter);
 app.get("/", async (req, res) => {
   try {
     const users = await prisma.user.findMany();
