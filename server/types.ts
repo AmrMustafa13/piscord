@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 
 export interface User {
   id?: string;
-  username: string;
+  userName: string;
   nickName: string;
   email: string;
   password: string;
@@ -15,6 +15,7 @@ export interface Server {
   ownerId: string;
   createdAt: string | Date;
   categories?: Category[];
+  members?: User[];
 }
 
 export interface Category {
@@ -74,4 +75,20 @@ export type getServerRequest = {};
 export type getServerResponse = Server | error;
 
 export type addUserToServerRequest = {};
-export type addUserToServerResponse = {}|error;
+export type addUserToServerResponse = {} | error;
+
+// category
+
+export type createCategoryRequest = Pick<Category, "name">;
+export type createCategoryResponse = Category | error;
+
+
+export type deleteCategoryRequest = {};
+export type deleteCategoryResponse = {} | error;
+
+export type editCategoryRequest = Pick<Category,"name">;
+export type editCategoryResponse =Omit<Category,"channels">| error;
+
+
+export type getCategoriesRequest = {};
+export type getCategoryiesResponse =Category[]| error;

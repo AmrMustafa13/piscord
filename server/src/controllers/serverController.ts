@@ -21,7 +21,7 @@ export const createServerController: ExpressHandler<
     return;
   }
 
-  const server = await prisma.server.create({
+  const server= await prisma.server.create({
     data: {
       name: req.body.name,
       ownerId: res.locals.userId,
