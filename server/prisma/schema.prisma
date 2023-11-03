@@ -27,7 +27,7 @@ model server {
   id         String     @id @default(uuid())
   name       String
   createdAt  DateTime   @default(now())
-  owner      user       @relation("owned", fields: [ownerId], references: [id])
+  owner      user       @relation("owned", fields: [ownerId], references: [id],onDelete: Cascade)
   ownerId    String
   members    user[]
   categories category[]
@@ -37,7 +37,7 @@ model category {
   id        String    @id @default(uuid())
   name      String
   createdAt DateTime  @default(now())
-  server    server    @relation(fields: [serverId], references: [id])
+  server    server    @relation(fields: [serverId], references: [id],onDelete: Cascade)
   serverId  String
   channels  channel[]
 }
@@ -46,7 +46,7 @@ model channel {
   id         String    @id @default(uuid())
   name       String
   createdAt  DateTime  @default(now())
-  category   category  @relation(fields: [categoryId], references: [id])
+  category   category  @relation(fields: [categoryId], references: [id],onDelete: Cascade)
   categoryId String
   messages   message[]
 }
@@ -55,9 +55,9 @@ model message {
   id         String   @id @default(uuid())
   content    String
   createdAt  DateTime @default(now())
-  channel    channel  @relation(fields: [channelId], references: [id])
+  channel    channel  @relation(fields: [channelId], references: [id],onDelete: Cascade)
   channelId  String
-  userSent   user     @relation(fields: [userSentId], references: [id])
+  userSent   user     @relation(fields: [userSentId], references: [id],onDelete: Cascade)
   userSentId String
 }
 

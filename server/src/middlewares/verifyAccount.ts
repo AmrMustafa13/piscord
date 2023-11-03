@@ -10,7 +10,14 @@ export const verifyAccount: RequestHandler = async (req, res, next) => {
   if (hashedToken.isVerified) {
     return next(new AppError("You are already verified", 409));
   } else {
-    hashedToken.isVerified = true;
+    
+    await prisma.verificationToken.update({
+      where: { token: token },
+      data: {
+        isVerified: true,
+      },
+    });
+
     res.status(200).json({
       message: "Your account has been verified",
     });

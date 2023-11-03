@@ -1,4 +1,5 @@
 import { RequestHandler } from "express";
+import { ValidationError } from "express-validator";
 
 export interface User {
   userName: string;
@@ -15,9 +16,14 @@ export type ExpressHandler<RequestBody, ResposeBody> = RequestHandler<
   any
 >;
 
+export type error = {
+  error: string;
+  status: string;
+};
+
 // auth
 
 export type signupRequest = User;
-export type signupResponse = {};
+export type signupResponse = { status: string; data:{} } | error;
 export type loginRequest = Pick<User, "email" | "password">;
-export type loginResponse = {};
+export type loginResponse = { status: string; data: { token: string } }| error;

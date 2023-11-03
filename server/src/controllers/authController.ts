@@ -14,11 +14,13 @@ import { createEmail } from "../utils/messages/generateHtmlMessage";
 import bcrypt from "bcrypt";
 import AppError from "../utils/AppError";
 import { validationResult } from "express-validator";
+
 export const signupUser: ExpressHandler<signupRequest, signupResponse> =
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
+      const allErrors = errors.array();
+      res.status(400).json({ status: "failed", error: allErrors[0].msg });
       return;
     }
 
@@ -29,7 +31,8 @@ export const signupUser: ExpressHandler<signupRequest, signupResponse> =
     });
     if (userWithSameEmail !== null) {
       res.status(409).json({
-        errors: [{ msg: "there is user with the  same email" }],
+        status: "failed",
+        error: "there is a user with the same email",
       });
       return;
     }
@@ -40,7 +43,8 @@ export const signupUser: ExpressHandler<signupRequest, signupResponse> =
     });
     if (userWithSameUserName !== null) {
       res.status(409).json({
-        errors: [{ msg: "there is user with the same userName" }],
+        status: "failed",
+        error: "there is a user with the same username",
       });
       return;
     }
@@ -52,7 +56,7 @@ export const signupUser: ExpressHandler<signupRequest, signupResponse> =
     )) as string;
 
     const user = {
-      userName: req.body.userName!, 
+      userName: req.body.userName!,
       dateOfBirth: new Date(req.body.dateOfBirth!),
       email: req.body.email!,
       password: hashedPassword!,
@@ -76,43 +80,66 @@ export const signupUser: ExpressHandler<signupRequest, signupResponse> =
       createEmail(token)
     );
     if (isEmailSent) {
-      res.sendStatus(200);
+      res.status(200).json({ status: "success", data: {} });
       return;
     } else {
-      res.status(500).json({
-        errors: [{ msg: "internal server error." }],
-      });
+      res
+        .status(500)
+        .json({ status: "failed", error: "internal server error" });
       return;
     }
   });
 export const loginUser: ExpressHandler<loginRequest, loginResponse> =
   asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const allErrors = errors.array();
+      res.status(400).json({ status: "failed", error: allErrors[0].msg });
+      return;
+    }
+
     const { email, password } = req.body;
-    if (!email || !password)
-      return next(new AppError("Email or password is missing", 400));
+
     const user = await prisma.user.findUnique({ where: { email } });
-    if (!user) return next(new AppError("user not found", 401));
+
+    console.log("aaa\n");
+    console.log(user);
+    if (!user) {
+      res.status(400).json({ status: "failed", error: "user is not found" });
+      return;
+    }
+
     const passwordMatch: Boolean = await bcrypt.compare(
-      password,
+      password!,
       user.password
     );
-    if (!passwordMatch)
-      return next(
-        new AppError("Incorrect email or password , please again", 401)
-      );
+    if (!passwordMatch) {
+      res.status(400).json({
+        status: "failed",
+        error: "username or password is not correct",
+      });
+      return;
+    }
     const verificationToken = await prisma.verificationToken.findFirst({
       where: { userId: user.id },
     });
     console.log(verificationToken, user.id);
-    if (!verificationToken)
-      return next(new AppError("You are already verified!", 400));
+    if (!verificationToken) {
+      res
+        .status(400)
+        .json({ status: "failed", error: "you are already verified!" });
+      return;
+    }
     if (!verificationToken.isVerified) {
-      return next(new AppError("Verify your account first", 400));
+      res
+        .status(400)
+        .json({ status: "failed", error: "verify your email first" });
+      return;
     }
     const token = generateToken(
       { userId: user.id },
-      process.env.JWT_SECRET,
-      process.env.JWT_AGE
+      process.env.JWT_SECRET!,
+      process.env.JWT_AGE!
     );
-    res.status(200).json({ token });
+    res.status(200).json({ status: "success", data: { token: token! } });
   });
