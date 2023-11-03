@@ -3,12 +3,16 @@ import { prisma } from "./src/db/db";
 import globalErrorHandler from "./src/middlewares/globalErrorHandler";
 import authRouter from "./src/routes/authRoute";
 import serverRouter from "./src/routes/serverRoute";
+import channelRouter from "./src/routes/channelRoute";
+import messageRouter from "./src/routes/messageRoute";
 import categoryRouter from "./src/routes/categoryRoute";
 
 const app = express();
 app.use(express.json());
 app.use(authRouter);
 app.use(serverRouter);
+app.use(channelRouter);
+app.use(messageRouter);
 app.use(categoryRouter);
 app.get("/", async (req, res) => {
   try {
