@@ -4,14 +4,17 @@ import FilledButton from "@/components/FilledButton";
 import qrCode from "@/assets/images/qr-code.png";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AuthContext } from "@/contexts/auth";
+import { useContext } from "react";
 
 const Login = () => {
+  const { setUser } = useContext(AuthContext);
+
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
 
     fetch(`${import.meta.env.VITE_API_ROOT_URL}/login`, {
       method: "POST",
@@ -26,6 +29,8 @@ const Login = () => {
           toast.error(data.error);
           return;
         }
+        localStorage.setItem("user", JSON.stringify(data.data.token));
+        setUser(data);
         toast.success("Logged in successfully");
       })
       .catch((err) => console.log(err));
