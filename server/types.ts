@@ -41,6 +41,7 @@ export interface Message {
   content: string;
   createdAt: string | Date;
   channelId: string;
+  userSentId: String
 }
 
 export type ExpressHandler<RequestBody, ResposeBody> = RequestHandler<
@@ -97,18 +98,19 @@ export type getChannelResponse = Channel | error;
 export type getMessagesRequest = {};
 export type getMessagesResponse = Message | error;
 
+export type createMessageRequest = Omit<Message , "createdAt" | "id">;
+export type createMessageResponse = Message | error;
+
 // category
 
 export type createCategoryRequest = Pick<Category, "name">;
 export type createCategoryResponse = Category | error;
 
-
 export type deleteCategoryRequest = {};
 export type deleteCategoryResponse = {} | error;
 
-export type editCategoryRequest = Pick<Category,"name">;
-export type editCategoryResponse =Omit<Category,"channels">| error;
-
+export type editCategoryRequest = Pick<Category, "name">;
+export type editCategoryResponse = Omit<Category, "channels"> | error;
 
 export type getCategoriesRequest = {};
-export type getCategoryiesResponse =Category[]| error;
+export type getCategoryiesResponse = Category[] | error;
