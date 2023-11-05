@@ -29,5 +29,4 @@ app.get("/", async (req, res) => {
 app.use(globalErrorHandler);
 app.listen(8000, async () => {
   console.log("Server running on port 8000.\n");
-  console.log(JSON.stringify(await prisma.server.findMany({include:{members:true,categories:true}})));
 });
