@@ -6,36 +6,44 @@ import Register from "./pages/Register";
 import ChannelsSidebar from "./components/ChannelsSidebar";
 import Chat from "./components/Chat";
 import WelcomeToServer from "./components/WelcomeToServer";
-import { useState } from "react";
+import EmailVerification from "./pages/EmailVerification";
 import Protected from "./components/Protected";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "./contexts/auth";
+import { useContext } from "react";
 
 function App() {
-
-  const [isSignedIn, setIsSignedIn] = useState(false)
+  const { user } = useContext(AuthContext);
 
   return (
     <>
+      <ToastContainer />
       <Routes>
-        <Route path="/" element={
-          isSignedIn ? <Navigate to="/channels" replace /> : <Landing />
-        } />
-        <Route path="/login" element={
-          isSignedIn ? <Navigate to="/channels" replace /> : <Login />
-        } />
-        <Route path="/register" element={
-          isSignedIn ? <Navigate to="/channels" replace /> : <Register />
-        } />
-        <Route path="/channels" element={
-          <Protected isSignedIn={isSignedIn}>
-            <Main />
-          </Protected>
-        }>
+        <Route path="/" element={user ? <Navigate to="/channels" replace /> : <Landing />} />
+        <Route
+          path="/email-verification"
+          element={user ? <Navigate to="/channels" replace /> : <EmailVerification />}
+        />
+        <Route path="/login" element={user ? <Navigate to="/channels" replace /> : <Login />} />
+        <Route
+          path="/register"
+          element={user ? <Navigate to="/channels" replace /> : <Register />}
+        />
+        <Route
+          path="/channels"
+          element={
+            <Protected isSignedIn={user}>
+              <Main />
+            </Protected>
+          }
+        >
           <Route path=":serverId" element={<ChannelsSidebar />}>
             <Route index element={<WelcomeToServer />} />
             <Route path=":channelId" element={<Chat />} />
           </Route>
         </Route>
-      </Routes >
+      </Routes>
     </>
   );
 }
