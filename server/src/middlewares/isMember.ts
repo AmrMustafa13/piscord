@@ -15,12 +15,10 @@ export const isMember: RequestHandler = asyncHandler(async (req, res, next) => {
       },
     })
     .catch((err) => console.log(err));
-
   if (!server) return next(new AppError("server id is not correct.", 400));
-  else if (!server.members.find((member) => member.id === userId)) {
+  else if (!server.members.find((member) => member.id === userId) && server.ownerId !== userId) {
     res.status(403).json({ msg: "Only Members can do this action." });
     return;
   }
   next();
 });
-

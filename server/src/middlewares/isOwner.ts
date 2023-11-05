@@ -12,8 +12,8 @@ export const isOwner: RequestHandler = asyncHandler(async (req, res, next) => {
   });
 
   if (!server) return next(new AppError("server id is not correct.", 400));
-  else if (server) {
-    res.status(403).json({ msg: "only admins can create categories." });
+  else if (server.ownerId !== userId) {
+    res.status(403).json({ msg: "only admins can do this actions." });
     return;
   }
   next();
