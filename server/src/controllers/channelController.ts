@@ -12,14 +12,21 @@ import {
 } from "../../types";
 import { prisma } from "../db/db";
 import AppError from "../utils/AppError";
+import { RequestHandler } from "express";
 export const createChannel: ExpressHandler<
   createChannelRequest,
   createChannelResponse
 > = asyncHandler(async (req, res, next) => {
-  const { name, categoryId } = req.body;
-  if (!name || !categoryId)
-    return next(new AppError("All fields are required", 400));
-  const channel = await prisma.channel.create({ data: { name, categoryId } });
+  const {categoryID} = req.params;
+  const { name } = req.body;
+  if (!name)
+    return next(new AppError("Channel must have a name", 400));
+  const category = await prisma.category.findUnique({
+    where: { id: categoryID },
+  });
+  if (!category)
+    return next(new AppError("There's no category with that id", 400));
+  const channel = await prisma.channel.create({ data: { name , categoryId:categoryID } });
   if (!channel) return next(new AppError("Internal Server Error", 500));
   res.status(200).json({
     id: channel.id,
@@ -62,3 +69,12 @@ export const updateChannel: ExpressHandler<
   });
   res.status(200).json(newUpdatedChannel);
 });
+
+export const getAllChannels: RequestHandler = asyncHandler(
+  async (req, res, next) => {
+    const channels = await prisma.channel.findMany();
+    res.status(200).json({
+      channels,
+    });
+  }
+);
