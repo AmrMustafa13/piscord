@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 /* Will Be Separated into different files */
 @layer components {
   .chat-nav-icon {
