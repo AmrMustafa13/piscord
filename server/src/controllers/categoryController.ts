@@ -1,3 +1,4 @@
+import { RequestHandler } from "express";
 import {
   ExpressHandler,
   Server,
@@ -121,3 +122,7 @@ export const editCategory: ExpressHandler<
     return;
   }
 };
+export const getAllCategories : RequestHandler = async (req , res , next) => {
+  const categories = await prisma.category.findMany();
+  res.status(200).json({categories});
+}
