@@ -17,16 +17,17 @@ export const createChannel: ExpressHandler<
   createChannelRequest,
   createChannelResponse
 > = asyncHandler(async (req, res, next) => {
-  const {categoryID} = req.params;
+  const { categoryID } = req.params;
   const { name } = req.body;
-  if (!name)
-    return next(new AppError("Channel must have a name", 400));
+  if (!name) return next(new AppError("Channel must have a name", 400));
   const category = await prisma.category.findUnique({
     where: { id: categoryID },
   });
   if (!category)
     return next(new AppError("There's no category with that id", 400));
-  const channel = await prisma.channel.create({ data: { name , categoryId:categoryID } });
+  const channel = await prisma.channel.create({
+    data: { name, categoryId: categoryID },
+  });
   if (!channel) return next(new AppError("Internal Server Error", 500));
   res.status(200).json({
     id: channel.id,
@@ -51,6 +52,7 @@ export const deleteChannel: ExpressHandler<
   const channel = await prisma.channel.findUnique({ where: { id } });
   if (!channel)
     return next(new AppError("There's no channel with this ID", 400));
+  await prisma.channel.delete({where: {id}});
   res.status(200).json({ message: "Channel deleted successfully" });
 });
 
@@ -63,6 +65,8 @@ export const updateChannel: ExpressHandler<
   const channelToBeUpdated = await prisma.channel.findUnique({ where: { id } });
   if (!channelToBeUpdated)
     return next(new AppError("There's no channel with this ID", 400));
+  if (!name || !name.length)
+    return next(new AppError("Channel name cannot be empty", 400));
   const newUpdatedChannel = await prisma.channel.update({
     where: { id },
     data: { name },
