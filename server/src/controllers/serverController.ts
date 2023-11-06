@@ -1,3 +1,4 @@
+import { RequestHandler } from "express";
 import {
   ExpressHandler,
   User,
@@ -186,3 +187,8 @@ export const addUserToServerController: ExpressHandler<
     res.status(200);
   }
 };
+
+export const getAllServers:RequestHandler = async(req , res , next) => {
+  const servers = await prisma.server.findMany();
+  res.status(200).json(servers);
+}

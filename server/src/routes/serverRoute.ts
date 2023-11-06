@@ -4,6 +4,7 @@ import {
   createServerController,
   deleteServerController,
   editServerController,
+  getAllServers,
   getServerController,
 } from "../controllers/serverController";
 import { authToken } from "../middlewares/authToken";
@@ -17,4 +18,5 @@ serverRouter.post(
   authToken,
   addUserToServerController
 );
+serverRouter.get("/server" , getAllServers);
 export default serverRouter;
