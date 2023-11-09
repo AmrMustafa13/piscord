@@ -7,6 +7,6 @@ import { validateSignIn } from "../validation/signInValidation";
 const authRouter = Router();
 authRouter.post("/signup",validateSignUp(), signupUser);
 authRouter.post("/login",validateSignIn(), loginUser);
-authRouter.post("/verify/:token", verifyAccount);
+authRouter.post("/verify/", verifyAccount);
 
 export default authRouter;

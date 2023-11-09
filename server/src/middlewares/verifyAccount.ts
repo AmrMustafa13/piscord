@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import { prisma } from "../db/db";
 import AppError from "../utils/AppError";
 export const verifyAccount: RequestHandler = async (req, res, next) => {
-  const token = req.params.token;
+  const token = req.query.token + "";
   const hashedToken = await prisma.verificationToken.findUnique({
     where: { token: token },
   });
