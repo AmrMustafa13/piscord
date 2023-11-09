@@ -1,15 +1,17 @@
-import { Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "@/contexts/auth";
+import { useContext } from "react";
 
 interface ProtectedProps {
-    isSignedIn: boolean
-    children: JSX.Element
+  children: JSX.Element;
 }
 
+const Protected = ({ children }: ProtectedProps) => {
+  const { user } = useContext(AuthContext);
 
-const Protected = ({ isSignedIn, children }: ProtectedProps) => {
-    if (!isSignedIn) {
-        return <Navigate to="/" replace />
-    }
-    return children
-}
-export default Protected
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
+};
+export default Protected;

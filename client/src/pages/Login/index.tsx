@@ -3,8 +3,39 @@ import backgroundImage from "@/assets/images/register-background.svg";
 import FilledButton from "@/components/FilledButton";
 import qrCode from "@/assets/images/qr-code.png";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AuthContext } from "@/contexts/auth";
+import { useContext } from "react";
 
 const Login = () => {
+  const { setUser } = useContext(AuthContext);
+
+  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
+    const data = Object.fromEntries(formData.entries());
+
+    fetch(`${import.meta.env.VITE_API_ROOT_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          toast.error(data.error);
+          return;
+        }
+        localStorage.setItem("user", JSON.stringify(data.data.token));
+        setUser(data);
+        toast.success("Logged in successfully");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div
       className="grid place-content-center min-h-screen bg-cover"
@@ -22,10 +53,9 @@ const Login = () => {
           style={{
             width: "414px",
           }}
+          onSubmit={handleLogin}
         >
-          <h3 className="text-center text-2xl font-light mb-2">
-            Welcome back!
-          </h3>
+          <h3 className="text-center text-2xl font-light mb-2">Welcome back!</h3>
           <p
             className="text-center text-base"
             style={{
@@ -35,8 +65,8 @@ const Login = () => {
             We're so excited to see you again!
           </p>
           <div className="mt-5">
-            <TextInput type="email" label="Email or Phone Number" required />
-            <TextInput type="password" label="Password" required />
+            <TextInput type="email" label="Email or Phone Number" required name="email" />
+            <TextInput type="password" label="Password" required name="password" />
             <FilledButton>Log In</FilledButton>
             <p
               className="text-base"
@@ -67,8 +97,7 @@ const Login = () => {
               color: "rgb(181, 186, 193)",
             }}
           >
-            Scan this with the{" "}
-            <span className="font-bold">Discord mobile app</span> to log in
+            Scan this with the <span className="font-bold">Discord mobile app</span> to log in
             instantly
           </p>
         </div>

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 interface Props {
   label: string;
@@ -21,6 +21,26 @@ const MonthsList = [
 const currentYear = new Date().getFullYear();
 const maxYearsBefore = 80;
 const DateInput: FC<Props> = ({ label, required = false }) => {
+
+  const [day, setDay] = useState("Day");
+  const [month, setMonth] = useState("Month");
+  const [year, setYear] = useState("Year");
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    switch (name) {
+      case "month":
+        setMonth(value);
+        break;
+      case "day":
+        setDay(value);
+        break;
+      case "year":
+        setYear(value);
+        break;
+    }
+  };
+
   return (
     <div className="mb-5">
       <label
@@ -48,12 +68,15 @@ const DateInput: FC<Props> = ({ label, required = false }) => {
           style={{
             backgroundColor: "hsl( 225 calc( 1 *6.3%) 12.5% /1)",
           }}
+          onChange={handleSelectChange}
+          value={month}
+          name="month"
         >
-          <option value="" selected disabled hidden>
+          <option value="Month" disabled hidden>
             Month
           </option>
-          {MonthsList.map((month) => (
-            <option key={month} value={month}>
+          {MonthsList.map((month, index) => (
+            <option key={month} value={index + 1}>
               {month}
             </option>
           ))}
@@ -64,8 +87,11 @@ const DateInput: FC<Props> = ({ label, required = false }) => {
           style={{
             backgroundColor: "hsl( 225 calc( 1 *6.3%) 12.5% /1)",
           }}
+          onChange={handleSelectChange}
+          value={day}
+          name="day"
         >
-          <option value="" selected disabled hidden>
+          <option value="Day" disabled hidden>
             Day
           </option>
           (
@@ -84,8 +110,11 @@ const DateInput: FC<Props> = ({ label, required = false }) => {
           style={{
             backgroundColor: "hsl( 225 calc( 1 *6.3%) 12.5% /1)",
           }}
+          onChange={handleSelectChange}
+          value={year}
+          name="year"
         >
-          <option value="" selected disabled hidden>
+          <option value="Year" disabled hidden>
             Year
           </option>
           {Array(maxYearsBefore)
