@@ -19,6 +19,7 @@ export const verifyAccount: RequestHandler = async (req, res, next) => {
     });
 
     res.status(200).json({
+      status:"Success",
       message: "Your account has been verified",
     });
   }
