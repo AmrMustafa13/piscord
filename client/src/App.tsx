@@ -7,7 +7,6 @@ import ChannelsSidebar from "./components/ChannelsSidebar";
 import Chat from "./components/Chat";
 import WelcomeToServer from "./components/WelcomeToServer";
 import EmailVerification from "./pages/EmailVerification";
-import Protected from "./components/Protected";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "./contexts/auth";
@@ -30,14 +29,7 @@ function App() {
           path="/register"
           element={user ? <Navigate to="/channels" replace /> : <Register />}
         />
-        <Route
-          path="/channels"
-          element={
-            <Protected isSignedIn={user}>
-              <Main />
-            </Protected>
-          }
-        >
+        <Route path="/channels" element={<Main />}>
           <Route path=":serverId" element={<ChannelsSidebar />}>
             <Route index element={<WelcomeToServer />} />
             <Route path=":channelId" element={<Chat />} />
