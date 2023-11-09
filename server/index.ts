@@ -27,6 +27,8 @@ app.use(globalErrorHandler);
 app.listen(8000, async () => {
   console.log("Server running on port 8000\n");
 
+  // await prisma.verificationToken.deleteMany();
+  // await prisma.user.deleteMany();
   console.log(
     await prisma.user.findMany({ include: { verificationTokens: true } })
   );

@@ -33,7 +33,6 @@ const Register = () => {
     formData.delete("month");
     formData.delete("year");
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
 
     fetch(`${import.meta.env.VITE_API_ROOT_URL}/signup`, {
       method: "POST",

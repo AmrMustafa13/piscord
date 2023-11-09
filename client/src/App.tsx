@@ -7,6 +7,7 @@ import ChannelsSidebar from "./components/ChannelsSidebar";
 import Chat from "./components/Chat";
 import WelcomeToServer from "./components/WelcomeToServer";
 import EmailVerification from "./pages/EmailVerification";
+import VerifyingEmail from "./pages/VerifyingEmail";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "./contexts/auth";
@@ -28,6 +29,10 @@ function App() {
         <Route
           path="/register"
           element={user ? <Navigate to="/channels" replace /> : <Register />}
+        />
+        <Route
+          path="/verify"
+          element={user ? <Navigate to="/channels" replace /> : <VerifyingEmail />}
         />
         <Route path="/channels" element={<Main />}>
           <Route path=":serverId" element={<ChannelsSidebar />}>
