@@ -14,7 +14,7 @@ import AppError from "../utils/AppError";
 export const signupUser: ExpressHandler<signupRequest, signupResponse> =
   asyncHandler(async (req, res, next) => {
     if (
-      !req.body.username ||
+      !req.body.userName ||
       !req.body.dateOfBirth ||
       !req.body.email ||
       !req.body.password ||
@@ -27,7 +27,7 @@ export const signupUser: ExpressHandler<signupRequest, signupResponse> =
       salt
     )) as string;
     const user: User = {
-      username: req.body.username,
+      userName: req.body.userName,
       dateOfBirth: new Date(req.body.dateOfBirth).toISOString(),
       email: req.body.email,
       password: hashedPassword,
