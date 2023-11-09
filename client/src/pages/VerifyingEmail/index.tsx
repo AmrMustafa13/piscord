@@ -23,7 +23,7 @@ const VerifyingEmail = () => {
         }
         setTimeout(() => {
           window.close();
-        }, 2000);
+        }, 4000);
       })
       .catch((err) => console.log(err));
   }, []);
